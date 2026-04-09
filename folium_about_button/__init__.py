@@ -26,8 +26,61 @@ Folium plugin that adds a button for displaying an about dialog (a bootstrap mod
 #  OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+# 3rd party
+import folium.elements
+from folium.template import Template
+from folium.utilities import remove_empty
+
 __author__: str = "Dominic Davis-Foster"
 __copyright__: str = "2026 Dominic Davis-Foster"
 __license__: str = "MIT License"
 __version__: str = "0.0.0"
 __email__: str = "dominic@davis-foster.co.uk"
+
+__all__ = ["AboutControl"]
+
+
+class AboutControl(folium.elements.JSCSSMixin, folium.elements.MacroElement):
+	"""
+	Control for showing an about dialog (a Bootstrap modal).
+
+	:param modal_id: The ID of the modal element.
+	:param icon: The icon to show.
+	:type icon: :class:`str`
+	:default icon: ``fa-solid fa-circle-info``
+	"""
+
+	def __init__(self, modal_id: str, **kwargs):
+		super().__init__()
+		self._name = "AboutControl"
+		self.options = remove_empty(modalID=modal_id, **kwargs)
+
+	# TODO: bootstrap CSS and JS (but avoid duplication)
+	#       Can use same keys as map so duplicates are ignored/overwritten?
+
+	default_js = [
+			("about_button_js", "static/js/about_button.js"),
+			]
+
+	_template = Template(
+			"""
+			{% macro header(this, kwargs) %}
+				<style>
+					.leaflet-control-about {
+						a {
+							font-size: 1.4em;
+							.leaflet-about-icon {
+								color: black;
+							}
+						}
+					}
+				</style>
+			{% endmacro %}
+
+			{% macro script(this, kwargs) %}
+				var {{this.get_name()}} = new AboutControl(
+					{{this.options | tojson}}
+				).addTo({{ this._parent.get_name() }});
+			{% endmacro %}
+			""",
+			)
