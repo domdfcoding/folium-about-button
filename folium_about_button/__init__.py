@@ -40,7 +40,7 @@ __email__: str = "dominic@davis-foster.co.uk"
 __all__ = ["AboutControl"]
 
 
-class AboutControl(folium.elements.JSCSSMixin, folium.elements.MacroElement):
+class AboutControl(folium.elements.JSCSSMixin, folium.elements.MacroElement):  # noqa: PRM003
 	r"""
 	Control for showing an about dialog (a Bootstrap modal).
 
