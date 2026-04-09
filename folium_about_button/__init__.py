@@ -60,7 +60,10 @@ class AboutControl(folium.elements.JSCSSMixin, folium.elements.MacroElement):
 	#       Can use same keys as map so duplicates are ignored/overwritten?
 
 	default_js = [
-			("about_button_js", "static/js/about_button.js"),
+			(
+					"about_button_js",
+					f"https://cdn.jsdelivr.net/gh/domdfcoding/folium-about-button@v{__version__}/folium_about_button/about_button.min.js",
+					),
 			]
 
 	_template = Template(
