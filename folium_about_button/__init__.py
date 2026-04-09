@@ -56,13 +56,17 @@ class AboutControl(folium.elements.JSCSSMixin, folium.elements.MacroElement):  #
 		self._name = "AboutControl"
 		self.options = remove_empty(modalID=modal_id, **kwargs)
 
-	# TODO: bootstrap CSS and JS (but avoid duplication)
-	#       Can use same keys as map so duplicates are ignored/overwritten?
-
 	default_js = [
 			(
 					"about_button_js",
 					f"https://cdn.jsdelivr.net/gh/domdfcoding/folium-about-button@v{__version__}/folium_about_button/about_button.min.js",
+					),
+			]
+
+	default_css = [
+			(
+					"fontawesome_css",
+					"https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css",
 					),
 			]
 
