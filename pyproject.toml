@@ -4,7 +4,7 @@ build-backend = "whey"
 
 [project]
 name = "folium-about-button"
-version = "0.0.0"
+version = "0.1.0b1"
 description = "Folium plugin that adds a button for displaying an about dialog (a bootstrap modal)."
 readme = "README.rst"
 keywords = []
@@ -23,7 +23,7 @@ Homepage = "https://github.com/domdfcoding/folium-about-button"
 "Source Code" = "https://github.com/domdfcoding/folium-about-button"
 
 [tool.whey]
-base-classifiers = []
+base-classifiers = [ "Typing :: Typed",]
 python-versions = [ "3.10", "3.11", "3.12", "3.13",]
 python-implementations = [ "CPython",]
 platforms = [ "Windows", "macOS", "Linux",]
