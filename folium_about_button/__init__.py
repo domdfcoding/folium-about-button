@@ -41,13 +41,14 @@ __all__ = ["AboutControl"]
 
 
 class AboutControl(folium.elements.JSCSSMixin, folium.elements.MacroElement):
-	"""
+	r"""
 	Control for showing an about dialog (a Bootstrap modal).
 
 	:param modal_id: The ID of the modal element.
 	:param icon: The icon to show.
 	:type icon: :class:`str`
 	:default icon: ``fa-solid fa-circle-info``
+	:param \*\*kwargs: Additional options for the javascript ``AboutControl`` class.
 	"""
 
 	def __init__(self, modal_id: str, **kwargs):

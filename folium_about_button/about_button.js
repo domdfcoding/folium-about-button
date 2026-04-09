@@ -129,22 +129,8 @@ const AboutControl = L.Control.extend({
 		this._link = linkAndIcon.link;
 		this._icon = linkAndIcon.icon;
 
-		// this._link.addEventListener('click', (ev) => {
-		// 	ev.stopPropagation();
-		// 	ev.preventDefault();
-		// 	this._onClick();
-		// });
-		// this._link.addEventListener('dblclick', (ev) => ev.stopPropagation());
-
 		return container;
 	},
-
-	// /**
-	//  * This method is called when the user clicks on the control.
-	//  */
-	// _onClick() {
-	// 	alert('Clicked about button');
-	// },
 });
 
 function aboutControl(options) {
