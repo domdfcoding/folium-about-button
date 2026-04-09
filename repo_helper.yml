@@ -1,0 +1,25 @@
+# Configuration for 'repo_helper' (https://github.com/repo-helper/repo_helper)
+---
+modname: 'folium-about-button'
+copyright_years: '2026'
+author: 'Dominic Davis-Foster'
+email: 'dominic@davis-foster.co.uk'
+username: 'domdfcoding'
+version: '0.0.0'
+license: 'MIT'
+short_desc: 'Folium plugin that adds a button for displaying an about dialog (a bootstrap modal).'
+
+enable_conda: false
+enable_tests: false
+enable_docs: false
+on_pypi: false
+use_whey: true
+
+python_versions:
+  - "3.10"
+  - 3.11
+  - 3.12
+  - 3.13
+
+manifest_additional:
+ - include folium_about_button/about_button.js
