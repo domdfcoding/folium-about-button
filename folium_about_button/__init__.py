@@ -26,10 +26,15 @@ Folium plugin that adds a button for displaying an about dialog (a bootstrap mod
 #  OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+# stdlib
+from re import Match
+
 # 3rd party
 import folium.elements
+import markdown
 from folium.template import Template
 from folium.utilities import remove_empty
+from markdown.inlinepatterns import IMAGE_LINK_RE, ImageInlineProcessor
 
 __author__: str = "Dominic Davis-Foster"
 __copyright__: str = "2026 Dominic Davis-Foster"
@@ -37,7 +42,7 @@ __license__: str = "MIT License"
 __version__: str = "0.1.0b1"
 __email__: str = "dominic@davis-foster.co.uk"
 
-__all__ = ["AboutControl"]
+__all__ = ["AboutControl", "AboutModal", "render_markdown"]
 
 
 class AboutControl(folium.elements.JSCSSMixin, folium.elements.MacroElement):  # noqa: PRM003
@@ -92,3 +97,112 @@ class AboutControl(folium.elements.JSCSSMixin, folium.elements.MacroElement):  #
 			{% endmacro %}
 			""",
 			)
+
+
+class AboutModal(folium.elements.JSCSSMixin, folium.elements.MacroElement):
+	r"""
+	Adds a bootstrap modal with a markdown body, such as for an about dialog.
+
+	:param title: The dialog's title.
+	:param markdown_body: The dialog's body, as markdown.
+	:param modal_id: The HTML element ID of the modal.
+	"""
+
+	def __init__(self, title: str, markdown_body: str, modal_id: str = "aboutModal"):
+		super().__init__()
+		self._name = "AboutModal"
+		self.title = title
+		self.markdown_body = markdown_body
+		self.modal_id = modal_id
+
+	@property
+	def body(self) -> str:
+		"""
+		The dialog body, as HTML.
+		"""
+
+		return self._body
+
+	@property
+	def markdown_body(self) -> str:
+		"""
+		The dialog body, as the markdown input.
+		"""
+
+		return self._markdown_body
+
+	@markdown_body.setter
+	def markdown_body(self, value: str) -> None:
+		self._markdown_body = value
+		self._body = render_markdown(value)
+
+	default_js = [
+			(
+					"bootstrap",
+					"https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js",
+					),
+			]
+
+	default_css = [
+			(
+					"bootstrap_css",
+					"https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css",
+					),
+			]
+
+	_template = Template(
+			"""
+			{% macro html(this, kwargs) %}
+				<div class="modal fade modal-lg"
+					id="{{ this.modal_id }}"
+					tabindex="-1"
+					aria-labelledby="{{ this.modal_id }}Label"
+					aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="{{ this.modal_id }}Label">{{ this.title }}</h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								{{ this.body }}
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endmacro %}
+			""",
+			)
+
+
+class _ImgFluidInlineProcessor(ImageInlineProcessor):
+	"""
+	Markdown image processor to use bootstrap's ``img-fluid`` class.
+	"""
+
+	# TODO: mypy thinks the signature doesn't match the superclass but it matches what's in their docs and the pyright stubs.
+	def handleMatch(self, m: Match[str], data: str):  # type: ignore[override]  # noqa: MAN002
+		el, start, index = super().handleMatch(m, data)
+		assert el is not None
+		el.set("class", "img-fluid")  # type: ignore[union-attr]
+		return el, start, index
+
+
+def render_markdown(source: str) -> str:
+	"""
+	Render the given markdown to HTML.
+
+	:param source:
+	"""
+
+	text = source.splitlines()
+
+	md = markdown.Markdown(extensions=["fenced_code", "codehilite", "toc"])
+	md.inlinePatterns.register(_ImgFluidInlineProcessor(IMAGE_LINK_RE, md), "image_link", 150)
+
+	while not text[0].strip():
+		text.pop(0)
+
+	body = md.convert('\n'.join(text))
+
+	return body
