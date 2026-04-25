@@ -200,8 +200,14 @@ def render_markdown(source: str) -> str:
 	md = markdown.Markdown(extensions=["fenced_code", "codehilite", "toc"])
 	md.inlinePatterns.register(_ImgFluidInlineProcessor(IMAGE_LINK_RE, md), "image_link", 150)
 
+	if not text:
+		return ''
+
 	while not text[0].strip():
 		text.pop(0)
+
+		if not text:
+			return ''
 
 	body = md.convert('\n'.join(text))
 
