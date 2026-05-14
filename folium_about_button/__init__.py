@@ -71,7 +71,7 @@ class AboutControl(folium.elements.JSCSSMixin, folium.elements.MacroElement):  #
 	default_css = [
 			(
 					"fontawesome_css",
-					"https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css",
+					"https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css",
 					),
 			]
 
