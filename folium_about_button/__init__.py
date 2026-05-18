@@ -29,13 +29,19 @@ Folium plugin that adds a button for displaying an about dialog (a bootstrap mod
 # stdlib
 from collections.abc import Iterable
 from re import Match
+from typing import TYPE_CHECKING
 
 # 3rd party
 import folium.elements
 import markdown
+from folium import Element
 from folium.template import Template
 from folium.utilities import remove_empty
 from markdown.inlinepatterns import IMAGE_LINK_RE, ImageInlineProcessor
+
+if TYPE_CHECKING:
+	# 3rd party
+	from typing_extensions import Self
 
 __author__: str = "Dominic Davis-Foster"
 __copyright__: str = "2026 Dominic Davis-Foster"
@@ -113,6 +119,11 @@ class AboutModal(folium.elements.JSCSSMixin, folium.elements.MacroElement):
 	.. versionchanged:: 0.2.0  Added ``title_extra_classes`` and ``body_extra_classes`` options.
 	"""
 
+	title: str
+	modal_id: str
+	title_extra_classes: list[str]
+	body_extra_classes: list[str]
+
 	def __init__(
 			self,
 			title: str,
@@ -149,6 +160,15 @@ class AboutModal(folium.elements.JSCSSMixin, folium.elements.MacroElement):
 	def markdown_body(self, value: str) -> None:
 		self._markdown_body = value
 		self._body = render_markdown(value)
+
+	if TYPE_CHECKING:
+		def add_to(  # noqa: D102
+			self: Self,
+			parent: Element,
+			name: str | None = None,
+			index: int | None = None,
+		) -> Self:
+			return self
 
 	default_js = [
 			(
