@@ -4,7 +4,7 @@ build-backend = "whey"
 
 [project]
 name = "folium-about-button"
-version = "0.1.0"
+version = "0.2.0"
 description = "Folium plugin that adds a button for displaying an about dialog (a bootstrap modal)."
 readme = "README.rst"
 keywords = []
