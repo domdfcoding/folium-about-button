@@ -17,8 +17,10 @@ folium-about-button
 
 	* - Tests
 	  - |actions_linux| |actions_windows| |actions_macos|
+	* - PyPI
+	  - |pypi-version| |supported-versions| |supported-implementations| |wheel|
 	* - Activity
-	  - |commits-latest| |commits-since| |maintained|
+	  - |commits-latest| |commits-since| |maintained| |pypi-downloads|
 	* - QA
 	  - |codefactor| |actions_flake8| |actions_mypy|
 	* - Other
@@ -52,6 +54,22 @@ folium-about-button
 	:target: https://www.codefactor.io/repository/github/domdfcoding/folium-about-button
 	:alt: CodeFactor Grade
 
+.. |pypi-version| image:: https://img.shields.io/pypi/v/folium-about-button
+	:target: https://pypi.org/project/folium-about-button/
+	:alt: PyPI - Package Version
+
+.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/folium-about-button?logo=python&logoColor=white
+	:target: https://pypi.org/project/folium-about-button/
+	:alt: PyPI - Supported Python Versions
+
+.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/folium-about-button
+	:target: https://pypi.org/project/folium-about-button/
+	:alt: PyPI - Supported Implementations
+
+.. |wheel| image:: https://img.shields.io/pypi/wheel/folium-about-button
+	:target: https://pypi.org/project/folium-about-button/
+	:alt: PyPI - Wheel
+
 .. |license| image:: https://img.shields.io/github/license/domdfcoding/folium-about-button
 	:target: https://github.com/domdfcoding/folium-about-button/blob/master/LICENSE
 	:alt: License
@@ -70,6 +88,10 @@ folium-about-button
 .. |maintained| image:: https://img.shields.io/maintenance/yes/2026
 	:alt: Maintenance
 
+.. |pypi-downloads| image:: https://img.shields.io/pypi/dm/folium-about-button
+	:target: https://pypistats.org/packages/folium-about-button
+	:alt: PyPI - Downloads
+
 .. end shields
 
 Installation
@@ -77,12 +99,12 @@ Installation
 
 .. start installation
 
-``folium-about-button`` can be installed from GitHub.
+``folium-about-button`` can be installed from PyPI.
 
 To install with ``pip``:
 
 .. code-block:: bash
 
-	$ python -m pip install git+https://github.com/domdfcoding/folium-about-button
+	$ python -m pip install folium-about-button
 
 .. end installation

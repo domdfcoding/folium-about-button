@@ -12,7 +12,6 @@ short_desc: 'Folium plugin that adds a button for displaying an about dialog (a 
 enable_conda: false
 enable_tests: false
 enable_docs: false
-on_pypi: false
 use_whey: true
 
 python_versions:
