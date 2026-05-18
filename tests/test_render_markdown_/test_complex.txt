@@ -1,0 +1,3 @@
+<h2 id="heading-2">Heading 2</h2>
+<p><strong>Bold Text</strong> and <em>Italic Text</em></p>
+<p>Some normal text and a link to <a href="https://google.com">Google</a></p>

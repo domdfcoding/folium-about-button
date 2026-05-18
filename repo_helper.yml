@@ -10,7 +10,6 @@ license: 'MIT'
 short_desc: 'Folium plugin that adds a button for displaying an about dialog (a bootstrap modal).'
 
 enable_conda: false
-enable_tests: false
 enable_docs: false
 use_whey: true
 

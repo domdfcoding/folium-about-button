@@ -27,6 +27,7 @@ Folium plugin that adds a button for displaying an about dialog (a bootstrap mod
 #
 
 # stdlib
+from collections.abc import Iterable
 from re import Match
 
 # 3rd party
@@ -106,14 +107,27 @@ class AboutModal(folium.elements.JSCSSMixin, folium.elements.MacroElement):
 	:param title: The dialog's title.
 	:param markdown_body: The dialog's body, as markdown.
 	:param modal_id: The HTML element ID of the modal.
+	:param title_extra_classes: Additional CSS classes for the dialog title element.
+	:param body_extra_classes: Additional CSS classes for the dialog body element.
+
+	.. versionchanged:: 0.2.0  Added ``title_extra_classes`` and ``body_extra_classes`` options.
 	"""
 
-	def __init__(self, title: str, markdown_body: str, modal_id: str = "aboutModal"):
+	def __init__(
+			self,
+			title: str,
+			markdown_body: str,
+			modal_id: str = "aboutModal",
+			title_extra_classes: Iterable[str] = (),
+			body_extra_classes: Iterable[str] = (),
+			):
 		super().__init__()
 		self._name = "AboutModal"
 		self.title = title
 		self.markdown_body = markdown_body
 		self.modal_id = modal_id
+		self.title_extra_classes = list(title_extra_classes)
+		self.body_extra_classes = list(body_extra_classes)
 
 	@property
 	def body(self) -> str:
@@ -161,10 +175,10 @@ class AboutModal(folium.elements.JSCSSMixin, folium.elements.MacroElement):
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h1 class="modal-title fs-5" id="{{ this.modal_id }}Label">{{ this.title }}</h1>
+								<h1 class="modal-title {{ ' '.join(this.title_extra_classes) }}" id="{{ this.modal_id }}Label">{{ this.title }}</h1>
 								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
-							<div class="modal-body">
+							<div class="modal-body {{ ' '.join(this.body_extra_classes) }}">
 								{{ this.body }}
 							</div>
 						</div>

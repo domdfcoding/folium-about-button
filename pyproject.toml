@@ -44,6 +44,10 @@ show_error_codes = true
 [tool.dependency-dash."requirements.txt"]
 order = 10
 
+[tool.dependency-dash."tests/requirements.txt"]
+order = 20
+include = false
+
 [tool.snippet-fmt]
 directives = [ "code-block",]
 
