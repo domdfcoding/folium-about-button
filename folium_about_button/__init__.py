@@ -29,7 +29,7 @@ Folium plugin that adds a button for displaying an about dialog (a bootstrap mod
 # stdlib
 from collections.abc import Iterable
 from re import Match
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Sequence, Union
 
 # 3rd party
 import folium.elements
@@ -37,6 +37,7 @@ import markdown
 from folium import Element
 from folium.template import Template
 from folium.utilities import remove_empty
+from markdown.extensions.tables import TableExtension
 from markdown.inlinepatterns import IMAGE_LINK_RE, ImageInlineProcessor
 
 if TYPE_CHECKING:
@@ -231,7 +232,14 @@ def render_markdown(source: str) -> str:
 
 	text = source.splitlines()
 
-	md = markdown.Markdown(extensions=["fenced_code", "codehilite", "toc"])
+	extensions: Sequence[Union[str, TableExtension]] = [
+			"fenced_code",
+			"codehilite",
+			"toc",
+			TableExtension(use_align_attribute=True),
+			]
+	md = markdown.Markdown(extensions=extensions)
+
 	md.inlinePatterns.register(_ImgFluidInlineProcessor(IMAGE_LINK_RE, md), "image_link", 150)
 
 	if not text:
