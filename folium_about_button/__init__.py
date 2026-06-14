@@ -27,9 +27,9 @@ Folium plugin that adds a button for displaying an about dialog (a bootstrap mod
 #
 
 # stdlib
-from collections.abc import Iterable
+from collections.abc import Iterable, Sequence
 from re import Match
-from typing import TYPE_CHECKING, Sequence, Union
+from typing import TYPE_CHECKING
 
 # 3rd party
 import folium.elements
@@ -232,7 +232,7 @@ def render_markdown(source: str) -> str:
 
 	text = source.splitlines()
 
-	extensions: Sequence[Union[str, TableExtension]] = [
+	extensions: Sequence[str | TableExtension] = [
 			"fenced_code",
 			"codehilite",
 			"toc",
