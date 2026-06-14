@@ -24,7 +24,7 @@ manifest_additional:
  - include folium_about_button/about_button.js
 
 extra_formate_deps:
- - formate-js>=0.2.0
+ - formate-js>=0.1.0
 
 extra_formate_types:
  - javascript
